@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSX and Babel</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 1300px;
+        margin: auto;
+       
+      }
+
+      .image-container {
+        
+        margin-bottom: 20px;
+        max-width: 1300px;
+      }
+
+      .image-container img {
+        width: 1300px;
+        height: 500px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .price {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .description {
+        margin-bottom: 20px;
+      }
+
+      .features,
+      .product-details {
+        margin-bottom: 20px;
+      }
+
+      .features ul,
+      .product-details ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .features li,
+      .product-details li {
+        margin-bottom: 5px;
+      }
+
+      .add-to-cart {
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .delivery-info {
+        margin-top: 10px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      function ProductPage() {
+        return (
+          <div className="container">
+            <div className="image-container">
+              <img
+                src="https://i.ytimg.com/vi/tVvxBdBJcS8/maxresdefault.jpg"
+                alt="Automatic Watch"
+              />
+            </div>
+            <h1>Automatic Watch</h1>
+            <p className="price">$350.00 USD</p>
+            <p className="description">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ad aliquip amet at delectus
+              doloribus dolor doloribus.
+            </p>
+
+            <div className="features">
+              <h3>Features</h3>
+              <ul>
+                <li>Chronograph</li>
+                <li>Master Chronometer Certified</li>
+                <li>Tachymeter</li>
+                <li>Anti-magnetic</li>
+                <li>Chronometer</li>
+                <li>Small seconds</li>
+              </ul>
+            </div>
+
+            <div className="product-details">
+              <h3>Product Details</h3>
+              <ul>
+                <li><strong>Between lugs:</strong> 20 mm</li>
+                <li><strong>Bracelet:</strong> Leather strap</li>
+                <li><strong>Case:</strong> Steel</li>
+                <li><strong>Case diameter:</strong> 42 mm</li>
+                <li><strong>Dial color:</strong> Black</li>
+                <li><strong>Crystal:</strong> Domed, scratch-resistant sapphire crystal with anti-reflective treatment inside</li>
+                <li><strong>Water resistance:</strong> 5 bar (50 meters / 167 feet)</li>
+              </ul>
+            </div>
+
+            <div className="add-to-cart">ADD TO CART</div>
+
+            <div className="delivery-info">
+              <p>🚚 2-3 business days delivery</p>
+            </div>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<ProductPage />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
+
