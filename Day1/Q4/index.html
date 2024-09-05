@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Newsletter Subscription</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .bell-icon {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #fbbf24;
+      border-radius: 50%;
+      position: relative;
+    }
+    .bell-icon::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 7px;
+      width: 10px;
+      height: 10px;
+      border: 2px solid #fbbf24;
+      border-radius: 50%;
+    }
+    .bell-icon::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 5px;
+      width: 14px;
+      height: 2px;
+      background-color: #fbbf24;
+    }
+    .check-icon {
+      width: 16px;
+      height: 16px;
+      position: relative;
+    }
+    .check-icon::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 3px;
+      width: 6px;
+      height: 2px;
+      background-color: white;
+      transform: rotate(45deg);
+    }
+    .check-icon::after {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 5px;
+      width: 10px;
+      height: 2px;
+      background-color: white;
+      transform: rotate(-45deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function App() {
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        console.log('Subscribing email:', email);
+        alert(`Subscribed with email: ${email}`);
+        e.target.reset();
+      };
+
+      return (
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+          <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
+            <div className="flex justify-center mb-6">
+              <div className="relative">
+                <div className="bg-yellow-100 p-3 rounded-lg">
+                  <div className="bell-icon"></div>
+                </div>
+                <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-1">
+                  <div className="check-icon"></div>
+                </div>
+              </div>
+            </div>
+            
+            <h2 className="text-3xl font-bold text-center mb-3">SUBSCRIBE</h2>
+            <p className="text-gray-600 text-center mb-6">
+              Subscribe to our newsletter & stay up to date!
+            </p>
+            
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                name="email"
+                placeholder="john@doe.net"
+                className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+
+</html>
