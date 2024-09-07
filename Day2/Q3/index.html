@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic List Rendering</title>
+  <style>
+    /* Simple grid layout */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      padding: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your ItemList component code will go here
+     function Gallery({children}){
+      return <div className = "gallery">{children}</div>
+     }
+
+  function Image({src,alt}) {
+    return <img src= {src} alt={alt}/>;
+  }
+
+  function App() {
+    return (
+      <Gallery>
+        <Image src="https://via.placeholder.com/150" alt="Image 1" />
+          <Image src="https://via.placeholder.com/150/0000FF" alt="Image 2" />
+          <Image src="https://via.placeholder.com/150/FF0000" alt="Image 3" />
+          <Image src="https://via.placeholder.com/150/00FF00" alt="Image 4" />
+        </Gallery>
+    ); 
+  }
+
+  ReactDOM.render(<App/>,document.getElementById('root'));
+
+
+
+  </script>
+</body>
+</html>
