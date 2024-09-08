@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Components in React</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Write your code here
+
+    const Title = ({ text }) => (
+      <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem' }}>
+        {text.split(' ').map((word, index) => (
+          <span key={index} style={{ color: index >= 3 ? '#4ade80' : 'inherit' }} >{word}{' '}</span>
+        ))}
+      </h1>
+    );
+
+    const Step = ({ number, title, description }) => (
+      <div style={{ flex: 1, padding: '0 1rem' }}>
+        <div style={{
+          backgroundColor: '#dcfce7',
+          color: '#166534',
+          width: '2.5rem',
+          height: '2.5rem',
+          borderRadius: '0.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: '1rem'
+
+        }}>
+          {number.padStart(2, '0')}
+
+        </div>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem' }}>{title}</h2>
+        <p style={{ color: '#4b5563' }}>{ description}</p>
+      </div>
+    );
+
+    const GettingStarted = () => {
+      const steps = [{
+        number: '1',
+        title: 'Find your template',
+        description: 'Every template is embedded within an iframe, so you can easily check what they look like and test the responsive behaviour.'
+
+      },
+
+
+      {
+        number: '2',
+        title: 'Copy the code',
+        description: 'Click the code tab to see the actual source code of the template. Copy and paste it into your project and adjust it to your needs.'
+      },
+
+      {
+        number: '3',
+        title: 'Enjoy your free time',
+        description: "You've just saved yourself a bunch of time not building the same stuff over and over again. Enjoy your free time, and build business features"
+
+      }
+
+
+      ];
+
+
+      return (
+        <div style={{ maxWidth: '64rem', margin: '0 auto', padding: '2rem' }}>
+          <Title   text="Getting started in 3 easy steps" />
+          <div style={{ display: 'flex', gap: '2rem' }}>
+            {steps.map((step) => (
+              <Step key={step.number} {...step} />
+            ))}
+          </div>
+        </div>
+
+      );
+
+
+
+    };
+
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<GettingStarted/>);
+
+
+
+  </script>
+</body>
+
+</html>

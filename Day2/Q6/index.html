@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Components in React</title>
+  <style>
+    body{
+      font-family:   sans-serif;
+    }
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid rgb(240, 236, 236);
+    
+    }
+
+    .logo img{
+      height: 25px;
+      width: auto;
+    }
+
+    .nav-Link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+     
+      color:grey;
+      
+      
+    }
+
+    .nav-Link > li {
+     list-style: none;
+     font-size: 16px;
+     font-weight: 400;
+    }
+    .nav-Link>li>i{
+      color: black;
+      font-size: 20px;
+      font-weight: 0;
+    }
+    .nav-Link  :hover{
+      color: 
+      RGB(56, 126, 209);
+      cursor: pointer;
+    }
+
+    
+    .head h1, p{
+      color: 
+      #424242;
+    }
+
+    .head button{
+      background-color: #387ED1;
+      color: white;
+      border: none;
+      outline: none;
+      font-size:20px;
+      padding: 5px 18px;
+      border-radius: 2px;
+    }
+    .head button:hover{
+      cursor: pointer;
+      background-color: black;
+    }
+
+    .sec-container{
+      display: flex;
+      gap: 10px;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 5rem;
+
+    }
+    .sec-left {
+          width: 30%;
+         
+         
+    }
+    .sec-left p{
+      line-height: 1.8rem;
+    }
+    .sec-right img{
+          width: 100%;
+          height: 570px;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script src="https://kit.fontawesome.com/9222c058aa.js" crossorigin="anonymous"></script>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Write your code here
+    function Navbar() {
+
+      return (
+
+        <nav>
+          <div class="logo">
+            <img src="https://zerodha.com/static/images/logo.svg" alt="" />
+          </div>
+
+          <div class="nav-Link">
+            <li>Signup</li>
+            <li><a href=""></a></li>
+            <li>Products</li>
+            <li>Pricing</li>
+            <li>Support</li>
+            <li><i class="fa-solid fa-bars"></i></li>
+          </div>
+        </nav>
+
+      );
+
+    };
+
+    function Dash(){
+      return (
+         <div class="dash">
+          <img src="./assest/section.jpg" alt=""/>
+          </div>
+      );
+    };
+
+    function Heading({headers,para,btn}) {
+      return (
+        <center class="head">
+            <h1>{headers}</h1>
+            <p>{para}</p>
+            <button>{btn}</button>
+          </center>
+      );
+    };
+
+    function Sect (){
+      return (
+        <>
+       
+      <div class="sec-container">
+      
+            <div class="sec-left">
+              <h1>Trust with confidence</h1>
+              <div>
+              
+               <h2>Customer-first always</h2>
+               <p>That's why 1.5+ crore customers trust Zerodha with ₹4.5+ lakh crores of equity investments and contribute to 15% of daily retail exchange volumes in India.</p>
+              </div>
+              <div>
+              
+               <h2>No spam or gimmicks</h2>
+               <p>No gimmicks, spam, "gamification", or annoying push notifications. High quality apps that you use at your pace, the way you like.</p>
+              </div>
+              <div>
+              
+               <h2>The Zerodha universe</h2>
+               <p>Not just an app, but a whole ecosystem. Our investments in 30+ fintech startups offer you tailored services specific to your needs.</p>
+              </div>
+              <div>
+              
+               <h2>Do better with money</h2>
+               <p>With initiatives like Nudge and Kill Switch, we don't just facilitate transactions, but actively help you do better with your money.</p>
+              </div>
+             
+              </div>
+
+              <div class="sec-right">
+                 <img src="https://zerodha.com/static/images/ecosystem.png" alt=""/>
+
+
+                </div>
+
+
+               
+        </div>
+
+        </>
+      );
+    };
+
+
+    function Lastimg(){
+      return (
+        <center class="last-imgh">
+                  <img src="https://zerodha.com/static/images/press-logos.png" alt=""/></center>
+        
+      )
+    }
+
+    function App() {
+      return (
+        <>
+        <Navbar />
+        <Dash/>
+        <Heading headers={'Invest in everything'} para={'Online platform to invest in stocks, derivatives, mutual funds, ETFs, bonds, and more.'} btn={'Sign up for free'}/>
+        <Sect/>
+        < Lastimg/>
+        <Heading headers={'Open a Zerodha account'} para={'Online platform to invest in stocks, derivatives, mutual funds, ETFs, bonds, and more.'} btn={'Sign up for free'}/>
+        </>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+  </script>
+</body>
+
+</html>
