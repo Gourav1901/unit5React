@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template</title>
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+<script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  // Your  code will go here
+
+  function GreetingCard({ greeting, name }) {
+    return (
+      <p>{greeting}-{name}</p>
+
+    )
+  }
+
+  function App() {
+    const greetings = [
+      { id: 1, greeting: "Hello", name: "John" },
+      { id: 2, greeting: "Hi", name: "Alice" },
+      { id: 3, greeting: "Hey", name: "Bob" },
+      { id: 4, greeting: "Good morning", name: "Emma" },
+      { id: 5, greeting: "Good evening", name: "Michael" }
+    ];
+
+
+
+    return (
+      <>
+
+        {
+          greetings.map((item) => (
+            <GreetingCard key={item.id} greeting={item.greeting} name={item.name} />
+          ))}
+      </>
+    );
+  };
+
+  ReactDOM.render(<App />, document.getElementById('root'));
+</script>
+
+</html>
