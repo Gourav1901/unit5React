@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Task Manager</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function TaskManager() {
+      const [tasks, setTasks] = useState([]);
+      const [newTask, setNewTask] = useState({ title: "", isCompleted: false, assignee: "" });
+      const [filter, setFilter] = useState("all");
+
+      // Fetch all tasks
+      const getTasks = async () => {
+        const response = await axios.get("http://localhost:3000/todos");
+        setTasks(response.data);
+      };
+
+      // Add new task
+      const addTask = async () => {
+        if (newTask.title && newTask.assignee) {
+          await axios.post("http://localhost:3000/todos", newTask);
+          getTasks(); // Refresh task list
+          setNewTask({ title: "", isCompleted: false, assignee: "" });
+        }
+      };
+
+      // Update task
+      const updateTask = async (id, updatedTask) => {
+        await axios.put(`http://localhost:3000/todos/${id}`, updatedTask);
+        getTasks();
+      };
+
+      // Delete task
+      const deleteTask = async (id) => {
+        await axios.delete(`http://localhost:3000/todos/${id}`);
+        getTasks();
+      };
+
+      // Filter tasks by completion status or assignee
+      const filteredTasks = tasks.filter(task => {
+        if (filter === "incomplete") return !task.isCompleted;
+        if (filter !== "all") return task.assignee === filter;
+        return true;
+      });
+
+      useEffect(() => {
+        getTasks();
+      }, []);
+
+      return (
+        <div>
+          <h1>Task Manager</h1>
+
+          {/* Add New Task Form */}
+          <div>
+            <input
+              type="text"
+              placeholder="Title"
+              value={newTask.title}
+              onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Assignee"
+              value={newTask.assignee}
+              onChange={(e) => setNewTask({ ...newTask, assignee: e.target.value })}
+            />
+            <label>
+              Completed:
+              <input
+                type="checkbox"
+                checked={newTask.isCompleted}
+                onChange={(e) => setNewTask({ ...newTask, isCompleted: e.target.checked })}
+              />
+            </label>
+            <button onClick={addTask}>Add Task</button>
+          </div>
+
+          {/* Filter Buttons */}
+          <div>
+            <button onClick={() => setFilter("all")}>Show All Tasks</button>
+            <button onClick={() => setFilter("incomplete")}>Show Incomplete Tasks</button>
+            <input
+              type="text"
+              placeholder="Filter by Assignee"
+              onChange={(e) => setFilter(e.target.value || "all")}
+            />
+          </div>
+
+          {/* Task List */}
+          <ul>
+            {filteredTasks.map(task => (
+              <li key={task.id}>
+                <input
+                  type="text"
+                  value={task.title}
+                  onChange={(e) => updateTask(task.id, { ...task, title: e.target.value })}
+                />
+                <input
+                  type="text"
+                  value={task.assignee}
+                  onChange={(e) => updateTask(task.id, { ...task, assignee: e.target.value })}
+                />
+                <label>
+                  Completed:
+                  <input
+                    type="checkbox"
+                    checked={task.isCompleted}
+                    onChange={(e) => updateTask(task.id, { ...task, isCompleted: e.target.checked })}
+                  />
+                </label>
+                <button onClick={() => deleteTask(task.id)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<TaskManager />, document.getElementById("root"));
+  </script>
+</html>
