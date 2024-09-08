@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profiles</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      #profile-app {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 24px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .profile {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+      }
+
+      .profile:last-child {
+        border-bottom: none;
+      }
+
+      .profile h2 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .profile p {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const { useState, useMemo } = React;
+
+      const users = [
+        { id: 1, name: 'John Doe', email: 'john@example.com' },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
+        { id: 3, name: 'Michael Johnson', email: 'michael@example.com' },
+        { id: 4, name: 'Emily Davis', email: 'emily@example.com' },
+      ];
+
+      function UserProfile({ user }) {
+        return (
+          <div className="profile">
+            <h2>{user.name}</h2>
+            <p>{user.email}</p>
+          </div>
+        );
+      }
+
+      function App() {
+        const [searchQuery, setSearchQuery] = useState("");
+
+        const filteredUsers = useMemo(() => {
+          return users.filter(user =>
+            user.name.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+        }, [searchQuery]);
+
+        return (
+          <div id="profile-app">
+            <h1>User Profiles</h1>
+            <input
+              type="text"
+              placeholder="Search by name..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {filteredUsers.map(user => (
+              <UserProfile key={user.id} user={user} />
+            ))}
+          </div>
+        );
+      }
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
