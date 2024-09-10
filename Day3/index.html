@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Input</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- React and Babel Scripts -->
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- React Component -->
+    <script type="text/babel">
+      const { useState } = React;
+
+      const ColorInput = () => {
+        const [color, setColor] = useState('#FFFFFF'); // Default color
+        const [isValid, setIsValid] = useState(true);
+
+        const handleChange = (e) => {
+          const value = e.target.value;
+          setColor(value);
+
+          // Validate HEX color
+          const hexRegex = /^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/;
+          setIsValid(hexRegex.test(value));
+        };
+
+        return (
+          <div style={{ textAlign: 'center', margin: '20px' }}>
+            <input
+              type="text"
+              value={color}
+              onChange={handleChange}
+              placeholder="#FFFFFF"
+              style={{ padding: '10px', fontSize: '16px' }}
+            />
+            <div
+              style={{
+                marginTop: '20px',
+                width: '100px',
+                height: '100px',
+                backgroundColor: isValid ? color : '#FFFFFF',
+                border: isValid ? '1px solid #ccc' : '1px solid red',
+                display: 'inline-block',
+              }}
+            />
+            {!isValid && (
+              <div style={{ color: 'red', marginTop: '10px' }}>
+                Invalid HEX color code
+              </div>
+            )}
+          </div>
+        );
+      };
+
+      ReactDOM.render(<ColorInput />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
