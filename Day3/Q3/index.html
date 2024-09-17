@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Quiz</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const { useState } = React;
+
+      const Quiz = () => {
+        // Quiz questions with answers
+        const questions = [
+          {
+            question: 'What is the capital of France?',
+            options: ['Paris', 'London', 'Berlin', 'Madrid'],
+            answer: 'Paris',
+          },
+          {
+            question: 'Which planet is known as the Red Planet?',
+            options: ['Earth', 'Mars', 'Jupiter', 'Saturn'],
+            answer: 'Mars',
+          },
+          {
+            question: 'What is the largest mammal?',
+            options: ['Elephant', 'Blue Whale', 'Giraffe', 'Tiger'],
+            answer: 'Blue Whale',
+          },
+        ];
+
+        // State to track selected answers
+        const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(null));
+        // State to track quiz submission and score
+        const [score, setScore] = useState(null);
+
+        // Function to handle answer selection
+        const handleAnswerChange = (index, answer) => {
+          const updatedAnswers = [...selectedAnswers];
+          updatedAnswers[index] = answer;
+          setSelectedAnswers(updatedAnswers);
+        };
+
+        // Function to calculate score and submit quiz
+        const handleSubmit = (event) => {
+          console.log(event)
+          event.preventDefault();
+          let calculatedScore = 0;
+          selectedAnswers.forEach((answer, index) => {
+            if (answer === questions[index].answer) {
+              calculatedScore += 1;
+            }
+          });
+          setScore(calculatedScore);
+        };
+
+        // Function to restart the quiz
+        const handleRestart = () => {
+          setSelectedAnswers(Array(questions.length).fill(null));
+          setScore(null);
+        };
+
+        return (
+          <div>
+            <h1>Simple Quiz</h1>
+            {score === null ? (
+              <form onSubmit={handleSubmit}>
+                {questions.map((q, index) => (
+                  <div key={index}>
+                    <h3>{q.question}</h3>
+                    {q.options.map((option) => (
+                      <label key={option} style={{ display: 'block', margin: '5px 0' }}>
+                        <input
+                          type="radio"
+                          name={`question-${index}`}
+                          value={option}
+                          checked={selectedAnswers[index] === option}
+                          onChange={() => handleAnswerChange(index, option)}
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                ))}
+                <button type="submit">Submit</button>
+              </form>
+            ) : (
+              <div>
+                <h2>Your Score: {score} / {questions.length}</h2>
+                <button onClick={handleRestart}>Restart Quiz</button>
+              </div>
+            )}
+          </div>
+        );
+      };
+
+      // Rendering the Quiz component
+      ReactDOM.render(<Quiz />, document.getElementById('root'));
+    </script>
+  </body>
+</html>

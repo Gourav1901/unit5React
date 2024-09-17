@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Todo List</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .todo-list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .todo-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #fff;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 5px;
+      }
+
+      .todo-item.completed {
+        text-decoration: line-through;
+        color: #888;
+      }
+
+      .filters {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      .filters button {
+        margin: 0 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const { useState } = React;
+
+      const TodoApp = () => {
+        // State to manage the list of tasks and the current filter
+        const [todos, setTodos] = useState([]);
+        const [newTask, setNewTask] = useState('');
+        const [filter, setFilter] = useState('all');
+
+        // Function to add a new todo item
+        const handleAddTodo = (e) => {
+          e.preventDefault();
+          if (newTask.trim()) {
+            setTodos([...todos, { text: newTask.trim(), completed: false }]);
+            setNewTask(''); // Clear the input field after adding
+          }
+        };
+
+        // Function to toggle the completed status of a todo item
+        const toggleTodo = (index) => {
+          const updatedTodos = todos.map((todo, i) => 
+            i === index ? { ...todo, completed: !todo.completed } : todo
+          );
+          setTodos(updatedTodos);
+        };
+
+        // Function to remove a todo item
+        const removeTodo = (index) => {
+          const updatedTodos = todos.filter((_, i) => i !== index);
+          setTodos(updatedTodos);
+        };
+
+        // Function to filter tasks based on the filter state
+        const filteredTodos = todos.filter((todo) => {
+          if (filter === 'active') return !todo.completed;
+          if (filter === 'completed') return todo.completed;
+          return true; // for 'all'
+        });
+
+        return (
+          <div>
+            <h1>Todo List</h1>
+            <form onSubmit={handleAddTodo}>
+              <input
+                type="text"
+                value={newTask}
+                onChange={(e) => setNewTask(e.target.value)}
+                placeholder="Enter a new task"
+              />
+              <button type="submit">Add Task</button>
+            </form>
+
+            <ul className="todo-list">
+              {filteredTodos.map((todo, index) => (
+                <li key={index} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+                  <span onClick={() => toggleTodo(index)}>
+                    {todo.text}
+                  </span>
+                  <button onClick={() => removeTodo(index)}>Remove</button>
+                </li>
+              ))}
+            </ul>
+
+            <div className="filters">
+              <button onClick={() => setFilter('all')}>All</button>
+              <button onClick={() => setFilter('active')}>Active</button>
+              <button onClick={() => setFilter('completed')}>Completed</button>
+            </div>
+          </div>
+        );
+      };
+
+      // Rendering the TodoApp component
+      ReactDOM.render(<TodoApp />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
