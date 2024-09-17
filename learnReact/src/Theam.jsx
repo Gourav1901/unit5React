@@ -28,7 +28,7 @@ const ThemeToggleApp = () => {
     color: state.theme === 'light' ? '#000' : '#fff',
     padding: '20px',
     textAlign: 'center',
-    minHeight: '100vh',
+    
   };
 
   return (

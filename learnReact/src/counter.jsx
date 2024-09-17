@@ -18,7 +18,7 @@ const reducer = (state,action) => {
 const CounterApp = () => {
    const [state,dispatch] = useReducer(reducer,initialState);
    return(
-    <div style={{textAlign:'center',marginTop:'50px'}}>
+    <div style={{textAlign:'center',marginTop:'20px'}}>
       <h1>Count: {state.count}</h1>
 
       <button onClick={()=> dispatch({type:'INCREMENT'})}>Increment</button>
